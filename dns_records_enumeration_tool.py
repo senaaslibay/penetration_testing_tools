@@ -1,0 +1,14 @@
+import dns.resolver as dns_resolver
+target_domain = 'youtube.com'
+records_type = ['A', 'AAAA', 'CNAME', 'MX', 'TXT', 'SOA']
+
+resolver = dns_resolver.Resolver()
+for record_type in records_type:
+    try:
+        answer = resolver.resolve(target_domain, record_type)
+    except dns_resolver.NoAnswer:
+        continue
+
+    print(f'{record_type} records for {target_domain}')
+    for data in answer:
+        print(data)
